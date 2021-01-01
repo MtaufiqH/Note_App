@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Note App</string>
+    <string name="add_new_folder">New Folder</string>
+    <string name="nama_folder">Nama Folder</string>
+    <string name="save">Save</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="there_is_no_folder">There is no Folder</string>
+</resources>
