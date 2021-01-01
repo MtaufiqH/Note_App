@@ -17,5 +17,13 @@ class FolderRepository(private val folderDao: FolderDao) {
         folderDao.insert(folder)
     }
 
+    suspend fun deleteFolder(folder: Folders){
+        folderDao.delete(folder)
+    }
+
+    suspend fun updateFolder(folder: Folders){
+        folderDao.update(folder)
+    }
+
 
 }

@@ -15,13 +15,19 @@ import id.taufiq.noteapp.db.folder.Folders
  */
 
 
-class FolderAdapter : ListAdapter<Folders, FolderAdapter.FolderViewHolder>(FolderDiffCallback()) {
+class FolderAdapter(private val onItemClick: (Folders) -> Unit) : ListAdapter<Folders, FolderAdapter.FolderViewHolder>(FolderDiffCallback()) {
 
     class FolderViewHolder constructor(private val binding: FolderRowItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Folders) {
+        fun bind(item: Folders, itemClick: (Folders)->Unit) {
             binding.tvFolderName.text = item.title
+            binding.rootId.setOnClickListener {
+                itemClick(item)
+            }
+
         }
+
+
 
     }
 
@@ -34,7 +40,7 @@ class FolderAdapter : ListAdapter<Folders, FolderAdapter.FolderViewHolder>(Folde
 
 
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position)!!, onItemClick)
     }
 
     class FolderDiffCallback : DiffUtil.ItemCallback<Folders>() {
@@ -45,6 +51,8 @@ class FolderAdapter : ListAdapter<Folders, FolderAdapter.FolderViewHolder>(Folde
             oldItem == newItem
 
     }
+
+
 
 
 }

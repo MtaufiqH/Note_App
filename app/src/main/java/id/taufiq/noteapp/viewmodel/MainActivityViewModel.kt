@@ -43,5 +43,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun deleteFolder(folder: Folders){
+        viewModelScope.launch(Dispatchers.IO) {
+            folderRepo.deleteFolder(folder)
+        }
+    }
+
+    fun updateFolder(folder: Folders){
+        viewModelScope.launch(Dispatchers.IO) {
+            folderRepo.updateFolder(folder)
+        }
+    }
+
 
 }
