@@ -30,7 +30,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     init {
         folderRepo = FolderRepository(noteDao)
-        getAllFolder = folderRepo.getAllFolder
+        getAllFolder = folderRepo.getAllFolders
     }
 
     fun checkIfEmptyFolder(folder: List<Folders>) {

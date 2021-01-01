@@ -11,7 +11,7 @@ import id.taufiq.noteapp.db.folder.Folders
 class FolderRepository(private val folderDao: FolderDao) {
 
 
-    val getAllFolder  = folderDao.getAllFolder()
+    val getAllFolders  = folderDao.getAllFolder()
 
     suspend fun insertFolder(folder: Folders){
         folderDao.insert(folder)

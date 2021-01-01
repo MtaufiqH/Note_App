@@ -23,7 +23,7 @@ class CreateFolderActivity : AppCompatActivity() {
     }
 
     private fun createNewFolder() {
-        val folderName = et_input_nama_folder.text.toString()
+        val folderName = binding.etInputNamaFolder.text.toString()
         val validation = verifyNotEmpty(folderName)
         if (validation) {
             // create new folder
@@ -37,6 +37,7 @@ class CreateFolderActivity : AppCompatActivity() {
 
     private fun verifyNotEmpty(namaFolder: String): Boolean {
         return if (TextUtils.isEmpty(namaFolder)) {
+            binding.etInputNamaFolder.error = "Insert judul dulu"
             false
         } else {
             namaFolder.isNotEmpty()

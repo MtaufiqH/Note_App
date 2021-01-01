@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground"
     app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="10dp">
 
@@ -17,7 +16,6 @@
             android:id="@+id/tv_folder_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
