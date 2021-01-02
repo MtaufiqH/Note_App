@@ -7,7 +7,9 @@
     <string name="there_is_no_folder">There is no Folder</string>
     <string name="there_is_no_notes">There is no Notes</string>
     <string name="add_note">Add Note</string>
-    <string name="your_note">Your Note</string>
     <string name="judul">Judul</string>
     <string name="create">Create</string>
+    <string name="isi">Isi:</string>
+    <string name="judul_id">Judul:</string>
+    <string name="your_note">Your Note</string>
 </resources>
