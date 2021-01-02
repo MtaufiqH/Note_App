@@ -35,6 +35,7 @@ class DetailFolderActivity : AppCompatActivity() {
      val noteAdapter: NoteAdapter by lazy {
         NoteAdapter {
             Intent(this,DetailNoteActivity::class.java).run {
+                putExtra("NOTE_FOREIGN",it.folderId)
                 putExtra("NOTES_ID", it.id)
                 startActivity(this)
             }

@@ -1,5 +1,6 @@
 package id.taufiq.noteapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,16 +20,17 @@ class DetailNoteActivity : AppCompatActivity() {
 
 
     private var noteId = -1
+    private var foreingId = -2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         noteId = intent.getIntExtra("NOTES_ID", -1)
-
+        foreingId = intent.getIntExtra("NOTE_FOREIGN", -2)
         noteViewModel.setId(noteId)
         noteViewModel.getNoteById.observe(this, Observer { notes ->
-            notes.let {
-                binding.tvJudulDetailId.text = it.title
-                binding.tvIsiDetailId.text = it.body
+            notes?.run {
+                binding.tvJudulDetailId.text = this.title
+                binding.tvIsiDetailId.text = this.body
             }
 
         })
@@ -50,12 +52,17 @@ class DetailNoteActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             MENU_ID_EDIT_NOTE -> {
-
+                Intent(this, EditNoteActivity::class.java).run {
+                    putExtra("FOREIGN_ID",foreingId)
+                    putExtra("EDIT_NOTE_ID", noteId)
+                    startActivity(this)
+                }
             }
 
             MENU_ID_HAPUS_NOTE -> {
                 val noteToDelete = Notes(noteId, "", "", 0)
                 noteViewModel.deleteNote(noteToDelete)
+                finish()
             }
         }
 
