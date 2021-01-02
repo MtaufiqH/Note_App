@@ -27,6 +27,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val noteDao = ApplicationDatabase.getInstance(application).folderDao()
     private val folderRepo: FolderRepository
     val getAllFolder: LiveData<List<Folders>>
+    lateinit var getDataId: LiveData<Folders>
 
     init {
         folderRepo = FolderRepository(noteDao)
@@ -37,19 +38,25 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         _emptyDb.value = folder.isEmpty()
     }
 
+
+    fun setId(id: Int) {
+        val item = folderRepo.editById(id)
+        getDataId = item
+    }
+
     fun insertFolder(folder: Folders) {
         viewModelScope.launch(Dispatchers.IO) {
             folderRepo.insertFolder(folder)
         }
     }
 
-    fun deleteFolder(folder: Folders){
+    fun deleteFolder(folder: Folders) {
         viewModelScope.launch(Dispatchers.IO) {
             folderRepo.deleteFolder(folder)
         }
     }
 
-    fun updateFolder(folder: Folders){
+    fun updateFolder(folder: Folders) {
         viewModelScope.launch(Dispatchers.IO) {
             folderRepo.updateFolder(folder)
         }

@@ -11,19 +11,24 @@ import id.taufiq.noteapp.db.folder.Folders
 class FolderRepository(private val folderDao: FolderDao) {
 
 
-    val getAllFolders  = folderDao.getAllFolder()
+    val getAllFolders = folderDao.getAllFolder()
 
-    suspend fun insertFolder(folder: Folders){
+
+
+    suspend fun insertFolder(folder: Folders) {
         folderDao.insert(folder)
     }
 
-    suspend fun deleteFolder(folder: Folders){
+    suspend fun deleteFolder(folder: Folders) {
         folderDao.delete(folder)
     }
 
-    suspend fun updateFolder(folder: Folders){
+    suspend fun updateFolder(folder: Folders) {
         folderDao.update(folder)
     }
+
+    fun editById(id: Int) = folderDao.getById(id)
+
 
 
 }

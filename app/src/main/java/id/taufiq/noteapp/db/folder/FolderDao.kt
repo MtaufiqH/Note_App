@@ -2,7 +2,6 @@ package id.taufiq.noteapp.db.folder
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Created By Taufiq on 1/1/2021.
@@ -25,7 +24,7 @@ interface FolderDao {
     fun getAllFolder(): LiveData<List<Folders>>
 
     @Query("SELECT * FROM folders_table WHERE id= :id")
-    fun getById(id: Int): Folders
+    fun getById(id: Int): LiveData<Folders>
 
 
 }

@@ -52,7 +52,9 @@ class DetailFolderActivity : AppCompatActivity() {
             Intent(this,FolderEditActivity::class.java).run {
                 putExtra("FOLDER_ID", folderId)
                 startActivity(this)
+                finish()
             }
+
 
             }
 

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         // get All data folders
         viewModel.getAllFolder.observe(this, Observer { folderList ->
             folderList.let {
-                Log.i("MainActivity", "data $folderList")
+                Log.i("MainActivity", "data ${folderList}")
                 binding.rvListFolder.run {
                     clipToPadding = false
                     this.adapter = folderAdapter
