@@ -23,21 +23,27 @@ import id.taufiq.noteapp.db.note.Notes
 import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 import id.taufiq.noteapp.viewmodel.NotesViewModel
 
+
+private const val MENU_ID_EDIT = 0
+private const val MENU_ID_HAPUS = 1
 class DetailFolderActivity : AppCompatActivity() {
 
     private val binding by viewBinding<ActivityDetailFolderBinding>()
-    private val MENU_ID_EDIT = 0
-    private val MENU_ID_HAPUS = 1
+    private val viewModel by viewModels<MainActivityViewModel>()
+    private val noteViewModel by viewModels<NotesViewModel>()
+
+
+
 
     // adapter Note
      val noteAdapter: NoteAdapter by lazy {
         NoteAdapter {
-
+            Intent(this,DetailNoteActivity::class.java).run {
+                startActivity(this)
+            }
         }
     }
 
-    private val viewModel by viewModels<MainActivityViewModel>()
-    private val noteViewModel by viewModels<NotesViewModel>()
 
     private var folderId = -1
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +64,10 @@ class DetailFolderActivity : AppCompatActivity() {
         noteViewModel.emptyNotes.observe(this, Observer {
             showEmptyNotesView(it)
         })
+
+        // get all note by id
+        noteViewModel.getAllItemByFolderId(folderId)
+
 
 
         binding.fabAddNote.setOnClickListener {

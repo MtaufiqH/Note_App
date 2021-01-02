@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.CreateNotesActivity"></activity>
+        <activity android:name=".view.DetailNoteActivity"></activity>
+        <activity android:name=".view.CreateNotesActivity" />
         <activity android:name=".view.FolderEditActivity" />
         <activity android:name=".view.DetailFolderActivity">
             <meta-data

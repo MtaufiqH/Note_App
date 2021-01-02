@@ -30,4 +30,6 @@ class NoteRepository(private val noteDao: NoteDao){
 
     fun editById(id: Int) = noteDao.getNoteById(id)
 
+    fun getAllById(folderId: Int) = noteDao.getAllNoteById(folderId)
+
 }

@@ -2,7 +2,6 @@ package id.taufiq.noteapp.db.note
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Created By Taufiq on 1/1/2021.
@@ -25,4 +24,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM notes_table WHERE id= :id")
     fun getNoteById(id: Int): LiveData<Notes>
+
+    @Query("SELECT * FROM notes_table WHERE folder_id= :id")
+    fun getAllNoteById(id: Int): LiveData<List<Notes>>
 }

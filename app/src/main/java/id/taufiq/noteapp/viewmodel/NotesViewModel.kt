@@ -26,12 +26,11 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val noteDao = ApplicationDatabase.getInstance(application).noteDao()
     private val noteRepository: NoteRepository
-    val allNotes: LiveData<List<Notes>>
+    lateinit var  allNotes: LiveData<List<Notes>>
     lateinit var getNoteById: LiveData<Notes>
 
     init {
         noteRepository = NoteRepository(noteDao)
-        allNotes = noteRepository.allNotes
     }
 
 
@@ -64,6 +63,12 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     fun setId(id: Int) {
         val item = noteRepository.editById(id)
         getNoteById = item
+    }
+
+    fun getAllItemByFolderId(folderId: Int){
+        val allItem = noteRepository.getAllById(folderId)
+        allNotes = allItem
+
     }
 
 
