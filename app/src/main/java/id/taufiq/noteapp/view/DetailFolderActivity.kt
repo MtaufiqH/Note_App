@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.viewbinding.library.activity.viewBinding
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import id.taufiq.noteapp.R
 import id.taufiq.noteapp.databinding.ActivityDetailFolderBinding
 import id.taufiq.noteapp.db.folder.Folders
@@ -15,18 +16,27 @@ import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 class DetailFolderActivity : AppCompatActivity() {
 
     private val binding by viewBinding<ActivityDetailFolderBinding>()
-    val MENU_ID_CREATE_NOTES = 0
-    val MENU_ID_EDIT = 1
-    val MENU_ID_HAPUS = 2
+    private val MENU_ID_CREATE_NOTES = 0
+    private val MENU_ID_EDIT = 1
+    private val MENU_ID_HAPUS = 2
 
     private val viewModel by viewModels<MainActivityViewModel>()
 
-    var folderId = -1
+    private var folderId = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_folder)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // id of intent
         folderId = intent.getIntExtra("ID", folderId)
+
+        // get data by id from database and then set title to action bar
+        viewModel.setId(folderId)
+        viewModel.getDataId.observe(this, Observer {
+            title = it.title
+        })
+
     }
 
 
@@ -49,18 +59,18 @@ class DetailFolderActivity : AppCompatActivity() {
 
             MENU_ID_EDIT -> {
                 // EDIT NOTES
-            Intent(this,FolderEditActivity::class.java).run {
-                putExtra("FOLDER_ID", folderId)
-                startActivity(this)
-                finish()
-            }
+                Intent(this, FolderEditActivity::class.java).run {
+                    putExtra("FOLDER_ID", folderId)
+                    startActivity(this)
+                    finish()
+                }
 
 
             }
 
             MENU_ID_HAPUS -> {
-                // hapus folder
-                viewModel.deleteFolder(Folders(folderId,""))
+                // Delete folder
+                viewModel.deleteFolder(Folders(folderId, ""))
                 finish()
             }
         }

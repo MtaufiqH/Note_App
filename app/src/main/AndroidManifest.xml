@@ -9,15 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.FolderEditActivity"></activity>
-        <activity android:name=".view.DetailFolderActivity" />
+        <activity android:name=".view.FolderEditActivity" />
+        <activity android:name=".view.DetailFolderActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity"/>
+        </activity>
         <activity android:name=".view.CreateFolderActivity" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity"
+            android:parentActivityName=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

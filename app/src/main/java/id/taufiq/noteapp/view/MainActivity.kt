@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by viewBinding()
     val folderAdapter: FolderAdapter by lazy {
         FolderAdapter { folders ->
-            Intent(this,DetailFolderActivity::class.java).run {
-                putExtra("ID",folders.id)
+            Intent(this, DetailFolderActivity::class.java).run {
+                putExtra("ID", folders.id)
                 startActivity(this)
             }
 
@@ -35,6 +35,13 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainActivityViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Get a support ActionBar corresponding to this toolbar and enable the Up button
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false) // disable the button
+            actionBar.setDisplayHomeAsUpEnabled(false) // remove the left caret
+            actionBar.setDisplayShowHomeEnabled(false) // remove the icon
+        }
         binding.idCreateFolder.setOnClickListener {
             Intent(this, CreateFolderActivity::class.java).run {
                 startActivity(this)
@@ -55,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     this.adapter = folderAdapter
                     addItemDecoration(ItemDecorations(padding))
                     folderAdapter.submitList(it)
-                    swipeToDelete(this)
+                    this.swipeToDelete()
 
                 }
 
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun swipeToDelete(recyclerView: RecyclerView) {
+    private fun RecyclerView.swipeToDelete() {
         val simpleCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemToDelete = folderAdapter.currentList[viewHolder.adapterPosition]
