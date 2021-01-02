@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.viewbinding.library.activity.viewBinding
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -24,8 +23,11 @@ class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by viewBinding()
     val folderAdapter: FolderAdapter by lazy {
-        FolderAdapter {
-            Toast.makeText(this, "Clicked ${it.title}", Toast.LENGTH_SHORT).show()
+        FolderAdapter { folders ->
+            Intent(this,DetailFolderActivity::class.java).run {
+                putExtra("ID",folders.id)
+                startActivity(this)
+            }
 
         }
     }
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 val itemToDelete = folderAdapter.currentList[viewHolder.adapterPosition]
                 viewModel.deleteFolder(itemToDelete)
                 // show snackbar
-                restoreDeleteData(viewHolder.itemView,itemToDelete)
+                restoreDeleteData(viewHolder.itemView, itemToDelete)
             }
 
         }
@@ -86,9 +88,9 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(binding.rvListFolder)
     }
 
-    private fun restoreDeleteData(view: View,deleteItem: Folders){
-        val snackBar = Snackbar.make(view,"Deleted ${deleteItem.title}", Snackbar.LENGTH_LONG)
-        snackBar.setAction("Undo"){
+    private fun restoreDeleteData(view: View, deleteItem: Folders) {
+        val snackBar = Snackbar.make(view, "Deleted ${deleteItem.title}", Snackbar.LENGTH_LONG)
+        snackBar.setAction("Undo") {
             viewModel.insertFolder(deleteItem)
         }.show()
     }
