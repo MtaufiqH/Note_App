@@ -17,9 +17,8 @@ import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 class DetailFolderActivity : AppCompatActivity() {
 
     private val binding by viewBinding<ActivityDetailFolderBinding>()
-    private val MENU_ID_CREATE_NOTES = 0
-    private val MENU_ID_EDIT = 1
-    private val MENU_ID_HAPUS = 2
+    private val MENU_ID_EDIT = 0
+    private val MENU_ID_HAPUS = 1
 
     private val viewModel by viewModels<MainActivityViewModel>()
 
@@ -44,6 +43,15 @@ class DetailFolderActivity : AppCompatActivity() {
             showEmptyFolderView(it)
         })
 
+
+        binding.fabAddNote.setOnClickListener {
+            // CREATE NOTES
+            Intent(this, CreateNotesActivity::class.java).run {
+                putExtra("ID_NOTE", folderId)
+                startActivity(this)
+            }
+        }
+
     }
 
     private fun showEmptyFolderView(isEmpty: Boolean) {
@@ -61,7 +69,6 @@ class DetailFolderActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menu?.run {
-            this.add(0, MENU_ID_CREATE_NOTES, 0, "Create Note")
             this.add(0, MENU_ID_EDIT, 0, "Edit Folder")
             this.add(0, MENU_ID_HAPUS, 0, "Hapus Folder")
         }
@@ -71,13 +78,6 @@ class DetailFolderActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            MENU_ID_CREATE_NOTES -> {
-                // CREATE NOTES
-                Intent(this, CreateNotesActivity::class.java).run {
-                    putExtra("ID_NOTE", folderId)
-                    startActivity(this)
-                }
-            }
 
             MENU_ID_EDIT -> {
                 // EDIT NOTES
