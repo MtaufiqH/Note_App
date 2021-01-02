@@ -24,16 +24,12 @@ import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 import id.taufiq.noteapp.viewmodel.NotesViewModel
 
 
-private const val MENU_ID_EDIT = 0
-private const val MENU_ID_HAPUS = 1
+
 class DetailFolderActivity : AppCompatActivity() {
 
     private val binding by viewBinding<ActivityDetailFolderBinding>()
     private val viewModel by viewModels<MainActivityViewModel>()
     private val noteViewModel by viewModels<NotesViewModel>()
-
-
-
 
     // adapter Note
      val noteAdapter: NoteAdapter by lazy {
@@ -44,20 +40,22 @@ class DetailFolderActivity : AppCompatActivity() {
         }
     }
 
-
     private var folderId = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_folder)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // id of intent
-        folderId = intent.getIntExtra("ID", -1)
+        folderId = intent.getIntExtra("FOLDER_DETAIL_ID", folderId)
 
         // get data by id from database and then set title to action bar
         viewModel.setId(folderId)
-        viewModel.getDataId.observe(this, Observer {
-            title = it.title
+        viewModel.getDataId.observe(this, Observer { folders ->
+            title = folders?.run {
+                this.title
+            }
         })
 
         // event empty notes visibility
@@ -163,15 +161,21 @@ class DetailFolderActivity : AppCompatActivity() {
                     finish()
                 }
 
-
             }
 
             MENU_ID_HAPUS -> {
                 // Delete folder
-                viewModel.deleteFolder(Folders(folderId, ""))
+                val itemToDelete = Folders(folderId,"")
+                viewModel.deleteFolder(itemToDelete)
                 finish()
             }
+
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val MENU_ID_EDIT = 1
+        private const val MENU_ID_HAPUS = 2
     }
 }

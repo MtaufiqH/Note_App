@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     val folderAdapter: FolderAdapter by lazy {
         FolderAdapter { folders ->
             Intent(this, DetailFolderActivity::class.java).run {
-                putExtra("ID", folders.id)
+                putExtra("FOLDER_DETAIL_ID", folders.id)
                 startActivity(this)
             }
 
@@ -36,12 +36,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Get a support ActionBar corresponding to this toolbar and enable the Up button
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(false) // disable the button
-            actionBar.setDisplayHomeAsUpEnabled(false) // remove the left caret
-            actionBar.setDisplayShowHomeEnabled(false) // remove the icon
-        }
+        val actionBar = supportActionBar!!
+        actionBar.setHomeButtonEnabled(false) // disable the button
+        actionBar.setDisplayHomeAsUpEnabled(false) // remove the left caret
+        actionBar.setDisplayShowHomeEnabled(false) // remove the icon
+
         binding.idCreateFolder.setOnClickListener {
             Intent(this, CreateFolderActivity::class.java).run {
                 startActivity(this)
