@@ -2,6 +2,7 @@ package id.taufiq.noteapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -9,10 +10,18 @@ import android.viewbinding.library.activity.viewBinding
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import id.taufiq.noteapp.R
+import id.taufiq.noteapp.adapter.NoteAdapter
+import id.taufiq.noteapp.adapter.SwipeToDelete
 import id.taufiq.noteapp.databinding.ActivityDetailFolderBinding
 import id.taufiq.noteapp.db.folder.Folders
+import id.taufiq.noteapp.db.note.Notes
 import id.taufiq.noteapp.viewmodel.MainActivityViewModel
+import id.taufiq.noteapp.viewmodel.NotesViewModel
 
 class DetailFolderActivity : AppCompatActivity() {
 
@@ -20,7 +29,15 @@ class DetailFolderActivity : AppCompatActivity() {
     private val MENU_ID_EDIT = 0
     private val MENU_ID_HAPUS = 1
 
+    // adapter Note
+     val noteAdapter: NoteAdapter by lazy {
+        NoteAdapter {
+
+        }
+    }
+
     private val viewModel by viewModels<MainActivityViewModel>()
+    private val noteViewModel by viewModels<NotesViewModel>()
 
     private var folderId = -1
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +46,7 @@ class DetailFolderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // id of intent
-        folderId = intent.getIntExtra("ID", folderId)
+        folderId = intent.getIntExtra("ID", -1)
 
         // get data by id from database and then set title to action bar
         viewModel.setId(folderId)
@@ -37,10 +54,9 @@ class DetailFolderActivity : AppCompatActivity() {
             title = it.title
         })
 
-
-
-        viewModel.emptyDb.observe(this, Observer {
-            showEmptyFolderView(it)
+        // event empty notes visibility
+        noteViewModel.emptyNotes.observe(this, Observer {
+            showEmptyNotesView(it)
         })
 
 
@@ -52,9 +68,59 @@ class DetailFolderActivity : AppCompatActivity() {
             }
         }
 
+
+        // get All Note and show to Recyclerview
+        noteViewModel.allNotes.observe(this, Observer { notes ->
+            notes?.let {
+                Log.i("Detail Folder", "list of note: $notes")
+                binding.rvDetailNotes.also {
+                    it.adapter = noteAdapter
+                    it.clipToPadding = false
+                    it.addItemDecoration(
+                        DividerItemDecoration(
+                            this,
+                            DividerItemDecoration.VERTICAL
+                        )
+                    )
+                    it.swipeToDelete()
+                }
+                noteAdapter.submitList(notes)
+
+            }
+
+            noteViewModel.checkIfEmpty(notes)
+
+        })
+
     }
 
-    private fun showEmptyFolderView(isEmpty: Boolean) {
+    /*
+    * swipe to delete note
+    * */
+    private fun RecyclerView.swipeToDelete() {
+        val simpleCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemToDelete = noteAdapter.currentList[viewHolder.adapterPosition]
+                noteViewModel.deleteNote(itemToDelete)
+                // show snackbar
+                restoreDeleteData(viewHolder.itemView, itemToDelete)
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rvDetailNotes)
+    }
+
+    // restore delete notes
+    private fun restoreDeleteData(view: View, deleteItem: Notes) {
+        val snackBar = Snackbar.make(view, "Deleted ${deleteItem.title}", Snackbar.LENGTH_LONG)
+        snackBar.setAction("Undo") {
+            noteViewModel.createNote(deleteItem)
+        }.show()
+    }
+
+    private fun showEmptyNotesView(isEmpty: Boolean) {
         if (isEmpty) {
             binding.ivEmptyNotes.visibility = View.VISIBLE
             binding.tvEmptyNotes.visibility = View.VISIBLE

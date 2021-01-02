@@ -19,9 +19,9 @@ import kotlinx.coroutines.launch
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val _emptyDb = MutableLiveData(true)
-    val emptyDb: LiveData<Boolean>
-        get() = _emptyDb
+    private val _emptyNotes = MutableLiveData(true)
+    val emptyNotes: LiveData<Boolean>
+        get() = _emptyNotes
 
 
     private val noteDao = ApplicationDatabase.getInstance(application).noteDao()
@@ -36,7 +36,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun checkIfEmpty(notes: List<Notes>) {
-        _emptyDb.value = notes.isEmpty()
+        _emptyNotes.value = notes.isEmpty()
 
     }
 

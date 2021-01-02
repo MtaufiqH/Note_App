@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:id="@+id/root_id_note"
     android:paddingLeft="@dimen/padding"
     android:paddingRight="@dimen/padding"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/judul"
+        android:id="@+id/tv_note_title"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/isi"
+        android:id="@+id/tv_isi_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
