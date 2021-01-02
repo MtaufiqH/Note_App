@@ -15,6 +15,7 @@ class CreateFolderActivity : AppCompatActivity() {
 
     private val binding: ActivityCreateFolderBinding by viewBinding()
     private val viewModel by viewModels<MainActivityViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.btnSave.setOnClickListener {

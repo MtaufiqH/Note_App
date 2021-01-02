@@ -1,4 +1,4 @@
-package id.taufiq.noteapp.adapter
+package id.taufiq.noteapp.util
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import id.taufiq.noteapp.R
 import id.taufiq.noteapp.adapter.FolderAdapter
-import id.taufiq.noteapp.adapter.SwipeToDelete
 import id.taufiq.noteapp.databinding.ActivityMainBinding
 import id.taufiq.noteapp.db.folder.Folders
 import id.taufiq.noteapp.util.ItemDecorations
+import id.taufiq.noteapp.util.SwipeToDelete
 import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {

@@ -16,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import id.taufiq.noteapp.R
 import id.taufiq.noteapp.adapter.NoteAdapter
-import id.taufiq.noteapp.adapter.SwipeToDelete
 import id.taufiq.noteapp.databinding.ActivityDetailFolderBinding
 import id.taufiq.noteapp.db.folder.Folders
 import id.taufiq.noteapp.db.note.Notes
+import id.taufiq.noteapp.util.SwipeToDelete
 import id.taufiq.noteapp.viewmodel.MainActivityViewModel
 import id.taufiq.noteapp.viewmodel.NotesViewModel
-
 
 
 class DetailFolderActivity : AppCompatActivity() {
@@ -32,10 +31,10 @@ class DetailFolderActivity : AppCompatActivity() {
     private val noteViewModel by viewModels<NotesViewModel>()
 
     // adapter Note
-     val noteAdapter: NoteAdapter by lazy {
+    val noteAdapter: NoteAdapter by lazy {
         NoteAdapter {
-            Intent(this,DetailNoteActivity::class.java).run {
-                putExtra("NOTE_FOREIGN",it.folderId)
+            Intent(this, DetailNoteActivity::class.java).run {
+                putExtra("NOTE_FOREIGN", it.folderId)
                 putExtra("NOTES_ID", it.id)
                 startActivity(this)
             }
@@ -167,7 +166,7 @@ class DetailFolderActivity : AppCompatActivity() {
 
             MENU_ID_HAPUS -> {
                 // Delete folder
-                val itemToDelete = Folders(folderId,"")
+                val itemToDelete = Folders(folderId, "")
                 viewModel.deleteFolder(itemToDelete)
                 finish()
             }

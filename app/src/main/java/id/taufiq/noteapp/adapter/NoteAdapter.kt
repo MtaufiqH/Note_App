@@ -30,7 +30,6 @@ class NoteAdapter(private val onItemClick: (Notes) -> Unit) :
 
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = NoteRowItemBinding.inflate(layoutInflater, parent, false)
