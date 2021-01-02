@@ -8,9 +8,38 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_detail_folder"
+        android:id="@+id/rv_detail_notes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_empty_notes"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/ic_note_empty24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_detail_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_detail_notes" />
+
+    <TextView
+        android:id="@+id/tv_empty_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/there_is_no_notes"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/iv_empty_notes"
+        app:layout_constraintStart_toStartOf="@+id/iv_empty_notes"
+        app:layout_constraintTop_toBottomOf="@+id/iv_empty_notes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

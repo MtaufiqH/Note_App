@@ -1,5 +1,6 @@
 package id.taufiq.noteapp.db.note
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -20,8 +21,8 @@ interface NoteDao {
     suspend fun delete(deleteNotes: Notes)
 
     @Query("SELECT * FROM notes_table")
-    fun getAllFolder(): Flow<List<Notes>>
+    fun getAllNotes(): LiveData<List<Notes>>
 
     @Query("SELECT * FROM notes_table WHERE id= :id")
-    fun getById(id: Int): Notes
+    fun getNoteById(id: Int): LiveData<Notes>
 }

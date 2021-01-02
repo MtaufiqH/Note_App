@@ -5,4 +5,5 @@
     <string name="save">Save</string>
     <string name="create_folder">Create Folder</string>
     <string name="there_is_no_folder">There is no Folder</string>
+    <string name="there_is_no_notes">There is no Notes</string>
 </resources>

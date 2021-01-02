@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
         viewModel.emptyDb.observe(this, Observer {
             showEmptyFolderView(it)
         })

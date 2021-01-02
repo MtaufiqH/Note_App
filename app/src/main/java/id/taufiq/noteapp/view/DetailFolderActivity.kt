@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.viewbinding.library.activity.viewBinding
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,23 @@ class DetailFolderActivity : AppCompatActivity() {
             title = it.title
         })
 
+
+
+        viewModel.emptyDb.observe(this, Observer {
+            showEmptyFolderView(it)
+        })
+
+    }
+
+    private fun showEmptyFolderView(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.ivEmptyNotes.visibility = View.VISIBLE
+            binding.tvEmptyNotes.visibility = View.VISIBLE
+        } else {
+            binding.ivEmptyNotes.visibility = View.INVISIBLE
+            binding.tvEmptyNotes.visibility = View.INVISIBLE
+        }
+
     }
 
 
@@ -55,6 +73,10 @@ class DetailFolderActivity : AppCompatActivity() {
         when (item.itemId) {
             MENU_ID_CREATE_NOTES -> {
                 // CREATE NOTES
+                Intent(this, CreateNotesActivity::class.java).run {
+                    putExtra("ID_NOTE", folderId)
+                    startActivity(this)
+                }
             }
 
             MENU_ID_EDIT -> {
